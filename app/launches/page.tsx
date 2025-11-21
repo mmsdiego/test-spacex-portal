@@ -1,5 +1,5 @@
 import { GET_LAUNCHES } from '@/lib/graphql/getLaunches';  
-import { createApolloClient } from "@/lib/apollo-client";
+import { createApolloClient } from '@/lib/apollo-client';
 import LaunchList from '@/components/LaunchList';
 import { LaunchListDataProps } from '@/types/launch';
 

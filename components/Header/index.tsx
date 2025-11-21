@@ -1,10 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
+import { Rocket } from 'lucide-react';
 
 export function Header() {
   return (
     <header className="w-full border-b p-4 flex justify-between items-center">
-      <Link href="/" className="text-2xl font-bold">
-        🚀 SpaceX Portal
+      <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
+        <Rocket className='text-2xl' /> SpaceX Portal
       </Link>
 
       <nav className="flex gap-4">

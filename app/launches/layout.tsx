@@ -1,6 +1,5 @@
-import { ApolloWrapper } from "@/app/providers/ApolloProvider";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { ApolloWrapper } from '@/app/providers/ApolloProvider';
+import { Header } from '@/components/Header';
 
 export default function LaunchLayout({ children }: { children: React.ReactNode }) {
   return (

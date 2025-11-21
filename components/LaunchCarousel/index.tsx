@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState } from "react";
+import { memo, useState } from 'react';
 
 import {
   Carousel,
@@ -8,7 +8,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from '@/components/ui/carousel'
 
 type LaunchCarouselProps = {
   images: string[];

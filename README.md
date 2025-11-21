@@ -71,6 +71,8 @@ cd spacex-portal
 # Instalar dependências
 npm install
 
+duplicar o arquivo '.env.example' e remonemar para '.env.local'
+
 # Rodar o projeto localmente
 npm run dev
 ```
