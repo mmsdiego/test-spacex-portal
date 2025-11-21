@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 SpaceX Launch Portal
 
-## Getting Started
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/seu-usuario/spacex-portal/actions)  
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/seu-usuario/spacex-portal/actions)
 
-First, run the development server:
+Uma aplicação web construída com **Next.js** que funciona como um portal de lançamentos da **SpaceX**, consumindo a **API GraphQL pública**.  
+
+
+---
+
+## 📝 Tecnologias Utilizadas
+
+- **Next.js (App Router)** – framework React moderno  
+- **TypeScript** – tipagem estática  
+- **Tailwind CSS v4** – estilização responsiva  
+- **shadcn/ui** – biblioteca de componentes  
+- **Apollo Client** – consumo de API GraphQL da SpaceX  
+- **Vitest** – testes unitários  
+- **Cypress** – testes E2E  
+
+---
+
+## 🖥️ Funcionalidades
+
+1. **Página Inicial**  
+   - Apresentação do portal  
+   - Destaque para a marca SpaceX  
+
+2. **Catálogo de Lançamentos**  
+   - Listagem paginada de missões  
+   - Infinite scroll (carregamento progressivo)  
+   - Informações importantes: nome da missão, data e status  
+
+3. **Detalhes do Lançamento**  
+   - Nome da missão  
+   - Descrição completa  
+   - Foguete utilizado  
+   - Imagens e vídeos (se disponíveis)  
+   - Links adicionais: Wikipedia, YouTube  
+
+4. **Responsividade**  
+   - Layout adaptável para desktop, tablet e mobile  
+
+5. **Renderização**  
+   - SSR (Server-side rendering) e CSR (Client-side rendering)  
+
+6. **Testes**  
+   - Unitário: Vitest  
+   - E2E: Cypress 
+
+---
+
+## 📂 Estrutura do Projeto
+
+app/ # Páginas e App Router
+components/ # Componentes reutilizáveis
+lib/ # Configurações, Apollo Client, utilitários
+tests/
+├─ unit/ # Testes Vitest
+└─ e2e/ # Testes Cypress
+
+---
+
+## ⚙️ Instalação e Setup
 
 ```bash
+# Clonar o repositório
+git clone https://github.com/mmsdiego/test-spacex-portal.git
+cd spacex-portal
+
+# Instalar dependências
+npm install
+
+# Rodar o projeto localmente
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A aplicação estará disponível em: ```http://localhost:3000```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Testes
 
-## Learn More
+Unitários (Vitest)
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Rodar todos os testes unitários
+npm run test:unit
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Rodar testes unitários em modo watch
+npm run test:unit:watch
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+E2E (Cypress)
+```bash
+# Abrir interface do Cypress
+npm run test:e2e
 
-## Deploy on Vercel
+# Rodar E2E headless
+npm run test:e2e:run
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📌 Scripts Disponíveis
+
+```json
+"scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "eslint",
+  "test:unit": "vitest run",
+  "test:unit:watch": "vitest",
+  "test:e2e": "cypress open",
+  "test:e2e:run": "cypress run",
+  "test": "npm run test:unit && npm run test:e2e:run"
+},
+```
+
+
