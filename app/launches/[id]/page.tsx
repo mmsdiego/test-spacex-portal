@@ -1,13 +1,14 @@
-import { createApolloClient } from '@/lib/apollo-client';
+import { apolloSSR } from '@/lib/apollo-server';
 import { GET_LAUNCH_DETAILS } from '@/lib/graphql/getLaunchDetails';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import { LaunchDetailsProps } from '@/types/launch'
+import { LaunchDetailsProps, LaunchIdOnly } from '@/types/launch'
 import LaunchCarousel from '@/components/LaunchCarousel';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { formatDate } from '@/lib/format-date';
+import { gql } from '@apollo/client';
 
 interface LaunchDetailProps {
   params: Promise<{ id: string }>;
@@ -17,28 +18,15 @@ interface LaunchGetProps {
   launch: LaunchDetailsProps
 }
 
-async function getLaunchDetails(id: string): Promise<LaunchDetailsProps | null> {
-  const client = createApolloClient()
-
-  if (!id) return null;
-
-  try {
-    const { data } = await client.query<LaunchGetProps>({
-      query: GET_LAUNCH_DETAILS,
-      variables: { id },
-      fetchPolicy: 'network-only',
-    });
-    return data?.launch || null;
-  } catch (error) {
-    console.error(`Erro ao buscar detalhes do lançamento ${id} (SSR):`, error);
-    return null;
-  }
-}
-
 export default async function LaunchDetailPage({ params }: LaunchDetailProps) {
   const { id } = await params;
 
-  const launch = await getLaunchDetails(id);
+  const { data } = await apolloSSR.query<LaunchGetProps>({
+    query: GET_LAUNCH_DETAILS,
+    variables: { id: id },
+  });
+
+  const launch = data?.launch;
 
   if (!launch) {
     return (
@@ -159,4 +147,20 @@ export default async function LaunchDetailPage({ params }: LaunchDetailProps) {
       </div>
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  const { data } = await apolloSSR.query<LaunchIdOnly>({
+    query: gql`
+      query {
+        launchesPast(limit: 20) {
+          id
+        }
+      }
+    `
+  });
+
+  return data?.launchesPast.map((launch: { id: string}) => ({
+    id: launch.id,
+  }));
 }

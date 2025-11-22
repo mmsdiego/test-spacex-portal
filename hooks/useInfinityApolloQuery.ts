@@ -21,10 +21,12 @@ export function useInfiniteApolloQuery<TResponse, TItem>({
   const [items, setItems] = useState<TItem[]>(initialItems);
   const [offset, setOffset] = useState(initialItems.length);
   const [hasMore, setHasMore] = useState(true);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
 
   const { loading, error, fetchMore } = useQuery<TResponse>(query, {
     variables: { limit: pageSize, offset: 0 },
     notifyOnNetworkStatusChange: true,
+    skip: initialItems.length > 0,
   });
 
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -35,10 +37,14 @@ export function useInfiniteApolloQuery<TResponse, TItem>({
 
     observerRef.current = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting && hasMore) {
+
+        setIsFetchingMore(true);
         
         const response = await fetchMore({
           variables: { limit: pageSize, offset }
         });
+
+        setIsFetchingMore(false);
 
         const newItems = (response?.data?.[dataKey] as unknown as TItem[]) ?? [];
 
@@ -59,6 +65,7 @@ export function useInfiniteApolloQuery<TResponse, TItem>({
   return {
     items,
     loading,
+    isFetchingMore,
     error,
     sentinelRef,
     hasMore

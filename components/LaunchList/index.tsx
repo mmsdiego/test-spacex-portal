@@ -9,7 +9,7 @@ import { SkeletonLoader } from '../SkeletonLoader';
 export default function LaunchList({ initialLaunches, pageSize }: { initialLaunches: LaunchProps[], pageSize: number }) {
   const {
     items: launches,
-    loading,
+    isFetchingMore,
     error,
     sentinelRef,
     hasMore
@@ -34,16 +34,16 @@ export default function LaunchList({ initialLaunches, pageSize }: { initialLaunc
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
-        {launches.map(l => <LaunchCard key={l.id} launch={l} />)}
+        {launches.map((l, idx) => <LaunchCard key={l.id + idx} launch={l} />)}
       </div>
 
-      {loading && (
+      {isFetchingMore && (
         <SkeletonLoader />
       )}
 
       <div ref={sentinelRef} className="h-8" />
 
-      {!hasMore && !loading && (
+      {!hasMore && !isFetchingMore && (
         <p className="text-center mt-4 text-gray-400">
           Fim da lista dos lançamentos.
         </p>

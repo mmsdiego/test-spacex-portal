@@ -32,3 +32,7 @@ export interface LaunchDetailsProps {
     };
   };
 }
+
+export interface LaunchIdOnly {
+  launchesPast: { id: string }[];
+}
