@@ -3,7 +3,7 @@ import { Rocket } from 'lucide-react';
 
 export function Header() {
   return (
-    <header className="w-full border-b p-4 flex justify-between items-center">
+    <header className="w-full border-b p-4 flex justify-between items-center sticky top-0 bg-white">
       <Link href="/" className="flex items-center gap-2 text-2xl font-bold">
         <Rocket className='text-2xl' /> SpaceX Portal
       </Link>

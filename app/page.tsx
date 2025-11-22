@@ -9,14 +9,15 @@ export default function Home() {
         Bem-vindo ao portal SpaceX <Rocket />
       </h1>
       <p className="mb-6">
-        Explore informações detalhadas sobre todos os lançamentos da SpaceX, incluindo missões passadas, foguetes utilizados e links adicionais.
+        Explore informações detalhadas sobre todos os lançamentos da SpaceX, incluindo missões passadas,
+        foguetes utilizados e links adicionais.
       </p>
-      
-      <Link href="/launches">
-        <Button variant="secondary" size="lg">
+
+      <Button variant="default" size="lg" asChild>
+        <Link href="/launches">
           <Rocket /> Ver lançamentos
-        </Button>
-      </Link>
+        </Link>
+      </Button>
 
       <section className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
         <div className="p-4 border rounded shadow-sm">

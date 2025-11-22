@@ -7,6 +7,7 @@ import { LaunchDetailsProps } from '@/types/launch'
 import LaunchCarousel from '@/components/LaunchCarousel';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { formatDate } from '@/lib/format-date';
 
 interface LaunchDetailProps {
   params: Promise<{ id: string }>;
@@ -53,13 +54,7 @@ export default async function LaunchDetailPage({ params }: LaunchDetailProps) {
 
   const statusVariant = launch.launch_success ? "success" : "destructive";
   const statusText = launch.launch_success ? "Sucesso" : "Falha";
-  const formattedDate = new Date(launch.launch_date_utc).toLocaleDateString('pt-BR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const formattedDate = formatDate(launch.launch_date_utc);
 
   return (
     <main className="container mx-auto p-4">
@@ -70,9 +65,7 @@ export default async function LaunchDetailPage({ params }: LaunchDetailProps) {
         <Badge
           variant={statusVariant as "default"}
           className={`
-            ${launch.launch_success === true ? 'bg-green-600' :
-              launch.launch_success === false ? 'bg-red-600' :
-                'bg-gray-600'}
+            ${launch.launch_success ? 'bg-green-600' : 'bg-red-600'}
             text-white text-lg px-4 py-1 mt-2 sm:mt-0
           `}
         >
@@ -158,11 +151,11 @@ export default async function LaunchDetailPage({ params }: LaunchDetailProps) {
       </Card>
 
       <div className="text-center pt-4">
-        <Link href="/launches" className="mt-4 inline-block text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-600 underline font-medium">
-          <Button>
+        <Button asChild>
+          <Link href="/launches" className="mt-4 inline-block font-medium">
             <ArrowLeft /> Voltar ao Catálogo de Lançamentos
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
     </main>
   );

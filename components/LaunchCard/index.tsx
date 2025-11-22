@@ -2,18 +2,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { LaunchProps } from '@/types/launch';
+import Link from 'next/link';
+import { formatDate } from '@/lib/format-date';
 
 interface LaunchCardProps {
   launch: LaunchProps;
 }
-
-const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString('pt-PT', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
 
 export function LaunchCard({launch}: LaunchCardProps) {
   const statusVariant = launch.launch_success ? "success" : "destructive";
@@ -38,18 +32,16 @@ export function LaunchCard({launch}: LaunchCardProps) {
         <Badge 
           variant={statusVariant as "default"}
           className={`
-            ${launch.launch_success === true ? 'bg-green-500 hover:bg-green-600' : 
-            launch.launch_success === false ? 'bg-red-500 hover:bg-red-600' : 
-            'bg-gray-500 hover:bg-gray-600'}
+            ${launch.launch_success ? 'bg-green-500' : 'bg-red-500'}
             text-white
           `}
         >
           Status: {statusText}
         </Badge>
         <Button asChild>
-          <a href={detailPath} data-testid="launch-link">
+          <Link href={detailPath} data-testid="launch-link">
             Ver Detalhes
-          </a>
+          </Link>
         </Button>
       </CardFooter>
     </Card>
